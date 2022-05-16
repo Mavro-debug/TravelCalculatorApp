@@ -1,0 +1,84 @@
+<body>
+  <div class="container">
+    <!--<router-outlet></router-outlet>-->
+
+    <form #form="ngForm" class="row g-3" style="margin: 10%" (ngSubmit)="submit()">
+      <div class="col-md-4">
+        <label for="averageSpeed" class="form-label">Średnia prędkość</label>
+        <input type="number" class="form-control" id="averageSpeed" name="averageSpeed" required min="1" [(ngModel)]="averageSpeed">
+      </div>
+      <div class="col-md-4">
+        <label for="averageFuelConsumption" class="form-label">Średnie spalanie</label>
+        <input type="number" class="form-control" id="averageFuelConsumption" name="averageFuelConsumption" min="1" [(ngModel)]="averageFuelConsumption">
+      </div>
+      <div class="col-md-4">
+        <label for="meter" class="form-label">Licznik</label>
+        <select id="meter" name="meter" class="form-select" required [(ngModel)]="meter">
+          <option selected>Km/h</option>
+          <option>Mph</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="distance" class="form-label">Dystans</label>
+        <input type="number" class="form-control" id="distance" name="distance" required min="1" [(ngModel)]="distance">
+      </div>
+      <div class="col-md-4">
+        <label for="units" class="form-label">Jednostki</label>
+        <select id="units" name="units" class="form-select" required [(ngModel)]="units">
+          <option selected>Kilometry</option>
+          <option>Mile</option>
+        </select>
+      </div>
+      <div class="col-4" style="margin-top: 50px">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="calculateLPG" name="calculateLPG" [(ngModel)]="calculateLPG">
+          <label class="form-check-label" for="calculateLPG">
+            Oblicz przybliżoną wartość dla LPG
+          </label>
+        </div>
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Oblicz</button>
+      </div>
+    </form>
+
+    <div class="row g-3" style="margin: 10%" *ngIf="resoultTable">
+      <div class="col-md-6">
+        <h3>Czas</h3>
+        <div class="col-md-6">
+          Godziny:
+        </div>
+        <div class="col-md-6">
+          <h3>{{timeResoult.hours}}</h3>
+        </div>
+        <div class="col-md-6">
+          Minuty:
+        </div>
+        <div class="col-md-6">
+          <h3>{{timeResoult.minutes}}</h3>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <h3>Spalanie</h3>
+        <div class="col-md-6">
+          Paliwo:
+        </div>
+        <div class="col-md-6">
+          <h3>{{timeResoult.fuelConsumption | number : '1.2-2'}} litrów</h3>
+        </div>
+        <div class="col-md-6">
+          LPG:
+        </div>
+        <div class="col-md-6">
+          <h3>{{timeResoult.lpgConsumption | number : '1.2-2'}} litrów</h3>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <h3>Komentarz</h3>
+        <h3>{{timeResoult.comment}}</h3>
+      </div>
+    </div>
+  </div>
+</body>
